@@ -30,7 +30,7 @@
     
     foreach($dna->icons as $value){
         
-        copy($baseurl."iconsymbols/".$value,"iconsymbols/".$value);
+        copy($baseurl."icons/".$value,"icons/".$value);
     
     }
     
