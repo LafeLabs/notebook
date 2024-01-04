@@ -1,13 +1,13 @@
     <?php
     
-    $dnaurl = "https://www.quantumnoise.org/json/dna.txt";
+    $dnaurl = "https://raw.githubusercontent.com/LafeLabs/notebook/main/json/dna.txt";
     
     if(isset($_GET["dna"])){
         $dnaurl = $_GET["dna"];
     }
     
     
-    $baseurl = explode("data/",$dnaurl)[0];
+    $baseurl = explode("json/",$dnaurl)[0];
     $dnaraw = file_get_contents($dnaurl);
     $dna = json_decode($dnaraw);
     
@@ -18,7 +18,7 @@
     mkdir("images");
     
 
-    copy("https://www.quantumnoise.org/php/replicator.txt","replicator.php");
+    copy("https://raw.githubusercontent.com/LafeLabs/notebook/main/php/replicator.txt","replicator.php");
     
     
     
@@ -28,20 +28,19 @@
     
     }
     
-    foreach($dna->iconsymbols as $value){
+    foreach($dna->icons as $value){
         
         copy($baseurl."iconsymbols/".$value,"iconsymbols/".$value);
     
     }
     
-    foreach($dna->data as $value){
-        
-        if($value != "scrollset.txt"){
-            copy($baseurl."data/".$value,"data/".$value);
+    foreach($dna->json as $value){
+        if($value != "pageset.txt"){
+            copy($baseurl."json/".$value,"json/".$value);
         }
         else{
-            if(!file_exists("data/".$value)){
-                copy($baseurl."data/".$value,"data/".$value);
+            if(!file_exists("json/".$value)){
+                copy($baseurl."json/".$value,"json/".$value);
             }
         }
         
@@ -54,10 +53,10 @@
     
     }
     
-    foreach($dna->scrolls as $value){
+    foreach($dna->pages as $value){
         
 //        if($value == "home"){
-            copy($baseurl."scrolls/".$value,"scrolls/".$value);
+            copy($baseurl."pages/".$value,"pages/".$value);
   //      }
     
         
@@ -68,8 +67,8 @@
     <a href = "index.html">CLICK TO GO TO PAGE</a>
     <style>
     body{
-        background-color:#9f8767;
-        font-family:Comic Sans MS;
+        font-family:Courier;
+        background-color:#F8F0E3;
     }
     a{
         font-size:3em;

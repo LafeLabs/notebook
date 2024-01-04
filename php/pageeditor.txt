@@ -3,7 +3,9 @@
     <head>
      <meta charset="utf-8"/>
 
-    <link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADf+wAA3/sAAAfgAACv9QAAoAUAAK/1AACv9QAAqBUAAK/1AACoFQAAr/UAAKAFAACv9QAAB+AAAN/7AADf+wAA" rel="icon" type="image/x-icon" />
+<title>page editor</title>
+<link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA4AcAAO/3AADH9wAA7/cAAO/3AADEdwAA7/cAAOw3AADH9wAA7HcAAO/3AADEFwAA7/cAAOAHAAD//wAA" rel="icon" type="image/x-icon">
+
         
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.6/showdown.js"></script>
 
@@ -118,19 +120,7 @@ if(document.getElementById("scrolldiv").innerHTML.length > 0 && document.getElem
         httpc.send();
     }
     else{
-        currentfile = scrollurl;
-        var httpc = new XMLHttpRequest();
-        httpc.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                scroll = this.responseText;
-                document.getElementById("maintextarea").value = scroll;  
-                currentfile = "pages/remote";
-                document.getElementById("currentfilename").innerHTML = currentfile;
-                document.getElementById("userlink").href = "notebook.php?scroll=" + currentfile;
-            }
-        };
-        httpc.open("GET", "fileloader.php?filename=" + currentfile, true);
-        httpc.send();
+
     }
 }
 
@@ -163,7 +153,7 @@ if(document.getElementById("scrolldiv").innerHTML.length > 0 && document.getElem
 }
 
 if(document.getElementById("scrolldiv").innerHTML.length == 0 && document.getElementById("fromdiv").innerHTML.length == 0){
-    currentfile = "README.md";
+    currentfile = "pages/home";
     var httpc = new XMLHttpRequest();
     httpc.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -191,48 +181,9 @@ document.getElementById("maintextarea").onkeyup = function() {
     httpc.send("data="+data+"&filename=" + currentfile);//send text to filesaver.php
 }
 
-//get all the markdown files in root directory and put them in list of scrolls
-scrolls = [];
-var httpc7 = new XMLHttpRequest();
-    httpc7.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        scrolls = JSON.parse(this.responseText);
-        for(var index = scrolls.length - 1;index >= 0;index--) {
-            if(scrolls[index].substr(-3) == ".md"){
-    //            console.log(scrolls[index]);
-                var newscrollbutton = document.createElement("div");
-                newscrollbutton.className = "scrollbutton";
-                newscrollbutton.innerHTML = scrolls[index];
-                document.getElementById("feedscroll").appendChild(newscrollbutton);
-                newscrollbutton.onclick = function(){
-                    document.getElementById("newscrollinput").value = "";
-                    currentfile = this.innerHTML;
-                    //console.log(scrollname);
-                    document.getElementById("currentfilename").innerHTML = currentfile;       
-                    document.getElementById("userlink").href = "notebook.php?scroll=" + currentfile;
-                    var httpc = new XMLHttpRequest();
-                    httpc.onreadystatechange = function() {
-                        if (this.readyState == 4 && this.status == 200) {
-                            scroll = this.responseText;
-                            
-                            document.getElementById("maintextarea").value = scroll;  
 
 
-                        }
-                    };
-                    httpc.open("GET", "fileloader.php?filename=" + currentfile, true);
-                    httpc.send();
-                }
-            }
-        }
-    }
-};
-
-httpc7.open("GET", "dir.php", true);
-httpc7.send();
-
-
-//get all the files in the "scrolls" directory and put them in the list of scroll files
+//get all the files in the "pages" directory and put them in the list of scroll files
 scrolls2 = [];
 var httpc8 = new XMLHttpRequest();
 httpc8.onreadystatechange = function() {
@@ -248,7 +199,7 @@ if (this.readyState == 4 && this.status == 200) {
             document.getElementById("newscrollinput").value = "";
             currentfile = this.innerHTML;
             document.getElementById("currentfilename").innerHTML = currentfile;
-            document.getElementById("userlink").href = "notebook.php?scroll=" + currentfile;            
+            document.getElementById("userlink").href = "notebook.php?page=" + currentfile;            
             var httpc = new XMLHttpRequest();
             httpc.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -273,7 +224,7 @@ document.getElementById("newscrollinput").onchange = function(){
     name = this.value;
     currentfile = "pages/" + this.value;
     document.getElementById("currentfilename").innerHTML = currentfile; 
-    document.getElementById("userlink").href = "notebook.php?scroll=" + currentfile;
+    document.getElementById("userlink").href = "notebook.php?page=" + currentfile;
     var httpc = new XMLHttpRequest();
     httpc.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -363,31 +314,9 @@ document.getElementById("menubutton").onclick = function(){
 
 scrollset = {};
 
-var httpc = new XMLHttpRequest();
-    httpc.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        scrollset = JSON.parse(this.responseText);
-        if(scrollset.server.charAt(scrollset.server.length-1) != "/"){
-            scrollset.server = scrollset.server + "/"; 
-        }
-        var httpc9 = new XMLHttpRequest();
-        httpc9.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
 
-                scrolls = JSON.parse(this.responseText);
-                scrollset.scrolls = scrolls;
-                savejson();
 
-            };
-        }
-        
-        httpc9.open("GET", "dir.php?filename=scrolls", true);
-        httpc9.send();
-        
-    }
-};
-httpc.open("GET", "fileloader.php?filename=json/pageset.txt", true);
-httpc.send();
+
 
 function savejson(){
     var url = "filesaver.php";        

@@ -2,18 +2,14 @@
     "html": [
         "README.md",
         "fork.html",
-        "forkdestroyer.html",
         "index.html",
-        "scrollset.html",
-        "webdestroyer.html",
+        "pageset.html",
         "webeditor.html"
     ],
     "json": [
         "dna.txt"
     ],
     "php": [
-        "copy.txt",
-        "deletefile.txt",
         "dir.txt",
         "dnagenerator.txt",
         "editor.txt",
@@ -22,14 +18,10 @@
         "mkdir.txt",
         "notebook.txt",
         "pageeditor.txt",
-        "rdelete.txt",
+        "pagesetreplicator.txt",
         "rdir.txt",
         "replicator.txt",
-        "scrolleditor.txt",
-        "scrollsetreplicator.txt",
-        "text2php.txt",
-        "uploadimage.txt",
-        "user.txt"
+        "text2php.txt"
     ],
     "pages": [
         "home"

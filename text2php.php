@@ -16,12 +16,11 @@ foreach ($files1 as $value) {
 
 <style>
 a{
-        font-family:Comic Sans MS;
-    
+    color:blue;
 }
     body{
-        background-color:#9f8767;
-        font-family:Comic Sans MS;
+        font-family:Courier;
+        background-color:#F8F0E3;
 
     }
 </style>
