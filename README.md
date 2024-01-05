@@ -1,4 +1,4 @@
- # notebook
+ # Notebook
 
 Free open source lab notebook using [Markdown](https://en.wikipedia.org/wiki/Markdown).
 
